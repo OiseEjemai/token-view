@@ -5,6 +5,7 @@ const { protectRoute } = require("./middleware/protectRoute")
 const User = require('./models/User')
 const cookieParser = require("cookie-parser")
 const cors = require('cors');
+const bodyParser = require("body-parser");
 const MetaApi = require('metaapi.cloud-sdk').default;
 const cloudinary = require('cloudinary').v2
 
@@ -38,6 +39,7 @@ const corsOptions = {
 
 app.use(cors())
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
 
 app.options('*', cors(corsOptions)); // For preflight requests
 
