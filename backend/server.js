@@ -23,6 +23,13 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+const allowedOrigins = [
+	'http://localhost:5173',   // Local development
+	'https://token-view-project.vercel.app',  // Production frontend
+	'https://token-view-project-5j9ti2ype-oise-ejemais-projects.vercel.app',
+	'https://token-view-project-git-main-oise-ejemais-projects.vercel.app'
+];
+
 const app = express();
 const PORT = process.env.PORT || 5500;
 
@@ -31,23 +38,31 @@ app.use(express.json({ limit: "5mb" })); // to parse req.body
 app.use(express.urlencoded({ extended: true })); // to parse form data(urlencoded)
 
 app.use(cookieParser());
-
-const corsOptions = {
-	origin: 'https://token-view-project.vercel.app', //Frontend URI (http://localhost:5173)
-	credentials: true, // Allow credentials (cookies)
+const corsOpts = {
+    origin: '*',
+    credentials: true,
+    methods: ['GET','POST','HEAD','PUT','PATCH','DELETE'],
+    allowedHeaders: ['Content-Type', 'Accept'],
+    exposedHeaders: ['Content-Type', 'Accept'],
 	optionsSuccessStatus: 200,
 };
 
+// const corsOptions = {
+// 	origin: allowedOrigins, //Frontend URI (http://localhost:5173)
+// 	credentials: true, // Allow credentials (cookies)
+// 	optionsSuccessStatus: 200,
+// };
+
 app.use(cors())
-app.use(cors(corsOptions));
+app.use(cors(corsOpts));
 app.use(bodyParser.json());
 
-// app.use((req, res, next) => {
-// 	res.header("Access-Control-Allow-Origin", "https://token-view-project.vercel.app");
-// 	res.header("Access-Control-Allow-Origin", "*");
-// 	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-// 	next();
-// });
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+	next();
+});
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
