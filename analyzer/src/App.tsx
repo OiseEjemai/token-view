@@ -18,7 +18,7 @@ function App() {
     queryKey: ["authUser"],
     queryFn: async () => {
       try {
-        const res = await fetch("https://token-view.onrender.com/me");
+        const res = await fetch("https://token-view.onrender.com/auth/me");
         const data = await res.json();
         if (data.error) return null;
         if (!res.ok) {

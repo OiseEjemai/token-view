@@ -34,7 +34,7 @@ const AnalyzeToken = () => {
     } = useMutation({
         mutationFn: async (search) => {
             try {
-                const res = await fetch("https://token-view.onrender.com/save-searches", {
+                const res = await fetch("https://token-view.onrender.com/users/save-searches", {
                     method: "POST",
                     headers: {
                         Accept: 'application/json',
