@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import Topbar from '@/components/shared/Topbar'
+import Topbar from '../components/shared/Topbar'
 import { createChart } from 'lightweight-charts';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { type ChartConfig } from "@/components/ui/chart"
-import Footer from '@/components/shared/Footer';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
+import { type ChartConfig } from "../components/ui/chart"
+import Footer from '../components/shared/Footer';
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "../components/ui/accordion"
 import { Bitcoin, LucideHandCoins } from 'lucide-react'
 import {
     Card,
@@ -18,7 +18,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "../components/ui/card"
 
 const chartData = [
     { month: "January", sell: 186, buy: 80 },
@@ -66,7 +66,7 @@ function Home() {
                         //     'Authorization': `Bearer CG-jrxuRfEAobyEpGDgbKk1uHi2`,
                         //     // Other headers if necessary
                         // },
-                        headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-jrxuRfEAobyEpGDgbKk1uHi2'}
+                        headers: { accept: 'application/json', 'x-cg-demo-api-key': 'CG-jrxuRfEAobyEpGDgbKk1uHi2' }
                     }
                 );
                 const data = await response.json();
@@ -109,12 +109,12 @@ function Home() {
             },
             grid: {
                 vertLines: {
-                  visible: false, // Remove vertical grid lines
+                    visible: false, // Remove vertical grid lines
                 },
                 // horzLines: {
                 //   visible: false, // Remove horizontal grid lines
                 // },
-              },
+            },
         });
         chartRef.current = chart; // Store chart instance in ref for resizing later
 
@@ -296,7 +296,7 @@ function Home() {
                 </select>
 
                 {/* Candlestick chart */}
-                <div id="chart" style={{ marginTop: '20px', width: '100%', height: '400px'}} className=' cursor-crosshair'></div>
+                <div id="chart" style={{ marginTop: '20px', width: '100%', height: '400px' }} className=' cursor-crosshair'></div>
             </div >
             <Footer />
         </div >

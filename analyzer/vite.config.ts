@@ -19,7 +19,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''), // Correctly remove the `/api` prefix
       },
       "/backend": {
-				target: "http://localhost:5500",
+				target: "https://token-view.onrender.com",
 				changeOrigin: true,
 			},
     },

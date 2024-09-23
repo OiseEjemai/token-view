@@ -1,8 +1,9 @@
+import React from 'react'
 import { Navigate, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Trading from './pages/Trading'
 import AnalyzeToken from './pages/AnalyzeToken'
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "./components/ui/sonner"
 import Signin from './pages/_auth/Signin'
 import Loader from "./components/shared/Loader";
 import Signup from './pages/_auth/Signup'
@@ -39,6 +40,7 @@ function App() {
       </div>
     );
   }
+
   return (
     <div>
       <Routes>

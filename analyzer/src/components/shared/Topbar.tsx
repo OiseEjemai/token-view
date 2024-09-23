@@ -9,11 +9,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "../ui/alert-dialog"
 import { Edit } from 'lucide-react'
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from '../../components/ui/button'
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
+import { Button } from '../ui/button'
 import {Badge} from '../ui/badge'
 import {
   Sheet,
@@ -24,7 +24,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "../ui/sheet"
 import { toast } from "sonner"
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';

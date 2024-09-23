@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from "sonner";
-import Topbar from '@/components/shared/Topbar';
+import Topbar from '../components/shared/Topbar';
 import { Input } from '../components/ui/input';
-import Loader from '@/components/shared/Loader';
+import Loader from '../components/shared/Loader';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import SkeletonCard from '../components/shared/SkeletonCard';
 import { Button } from '../components/ui/button';
@@ -13,7 +13,7 @@ import {
     CardContent,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
+} from "../components/ui/card";
 
 const AnalyzeToken = () => {
     const [search, setSearch] = useState('');
@@ -64,7 +64,14 @@ const AnalyzeToken = () => {
         setTokenInfo(null);
 
         try {
-            const response = await axios.get(`/api/coins/${searchQuery.toLowerCase()}`);
+            const response = await fetch(`/api/coins/${searchQuery.toLowerCase()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ search }),
+            });
+            // const response = await axios.get(`/api/coins/${searchQuery.toLowerCase()}`);
             setTokenInfo(response.data);
             analyzeToken(response.data); // Call the analysis function
             console.log(response.data)
@@ -74,7 +81,14 @@ const AnalyzeToken = () => {
         }
         if (searchQuery.toLowerCase() === 'ton' || searchQuery.toLowerCase() === 'toncoin') {
             try {
-                const fallbackResponse = await axios.get(`/api/coins/the-open-network`);
+                // const fallbackResponse = await axios.get(`/api/coins/the-open-network`);
+                const fallbackResponse = await fetch(`/api/coins/the-open-network`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ search }),
+                });
                 setTokenInfo(fallbackResponse.data);
                 analyzeToken(fallbackResponse.data); // Call the analysis function
                 setLoading(false);
