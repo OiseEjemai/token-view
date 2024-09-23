@@ -1,12 +1,13 @@
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { SigninValidation } from "@/lib/validation";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import Loader from "@/components/shared/Loader";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../components/ui/form";
+import { SigninValidation } from "../../lib/validation";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
+import Loader from "../../components/shared/Loader";
 import { toast } from "sonner"
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";

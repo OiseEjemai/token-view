@@ -56,19 +56,21 @@ function Home() {
     useEffect(() => {
         const fetchCandlestickData = async () => {
             try {
+                const response = await fetch(`/api/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'x-cg-demo-api-key': 'CG-jrxuRfEAobyEpGDgbKk1uHi2'
+                    },
+                    // body: JSON.stringify({  }),
+                });
                 // Fetch OHLC data for the past 30 days (example timeframe)
-                const response = await fetch(
-                    `/api/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`,
-                    // `/api/coins/id/market_chart?vs_currency=usd&ids=bitcoin&days=365`,
-                    // `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&x_cg_demo_api_key=YOUR_API_KEY`
-                    {
-                        // headers: {
-                        //     'Authorization': `Bearer CG-jrxuRfEAobyEpGDgbKk1uHi2`,
-                        //     // Other headers if necessary
-                        // },
-                        headers: { accept: 'application/json', 'x-cg-demo-api-key': 'CG-jrxuRfEAobyEpGDgbKk1uHi2' }
-                    }
-                );
+                // const response = await fetch(
+                //     `/api/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`,
+                //     {
+                //         headers: { accept: 'application/json', 'x-cg-demo-api-key': 'CG-jrxuRfEAobyEpGDgbKk1uHi2' }
+                //     }
+                // );
                 const data = await response.json();
                 console.log(data)
 
@@ -127,15 +129,14 @@ function Home() {
         // Update chart with new data (for live updates)
         const updateChart = async () => {
             try {
-                const response = await fetch(
-                    `/api/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`,
-                    {
-                        headers: {
-                            'Authorization': `Bearer CG-jrxuRfEAobyEpGDgbKk1uHi2`,
-                            // Other headers if necessary
-                        },
-                    }
-                );
+                const response = await fetch(`/api/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'Authorization': `Bearer CG-jrxuRfEAobyEpGDgbKk1uHi2`,
+                    },
+                    // body: JSON.stringify({  }),
+                });
                 const newData = await response.json();
 
                 // Format the new data to match candlestick chart's structure

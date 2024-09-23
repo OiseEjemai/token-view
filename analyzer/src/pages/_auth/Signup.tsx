@@ -1,15 +1,15 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner"
-import Loader from "@/components/shared/Loader";
+import Loader from "../../components/shared/Loader";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../components/ui/form";
+import { Input } from "../../components/ui/input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { SignupValidation } from "@/lib/validation";
-import { Button } from "@/components/ui/button";
+import { SignupValidation } from "../../lib/validation";
+import { Button } from "../../components/ui/button";
 
 function Signup() {
   const navigate = useNavigate();
