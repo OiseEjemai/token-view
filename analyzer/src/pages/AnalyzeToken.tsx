@@ -71,6 +71,7 @@ const AnalyzeToken = () => {
                     Accept: 'application/json',
                     "Content-Type": "application/json",
                 },
+                credentials: 'include', // Important to send cookies
                 body: JSON.stringify({ search }),
             });
             // const response = await axios.get(`/api/coins/${searchQuery.toLowerCase()}`);
@@ -89,6 +90,7 @@ const AnalyzeToken = () => {
                     headers: {
                         "Content-Type": "application/json",
                     },
+                    credentials: 'include', // Important to send cookies
                     body: JSON.stringify({ search }),
                 });
                 setTokenInfo(fallbackResponse.data);

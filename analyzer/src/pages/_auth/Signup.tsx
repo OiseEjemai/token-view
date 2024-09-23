@@ -32,6 +32,7 @@ function Signup() {
 					headers: {
 						"Content-Type": "application/json",
 					},
+					credentials: 'include', // Important to send cookies
 					body: JSON.stringify({ name, username, email, password }),
 				});
 
