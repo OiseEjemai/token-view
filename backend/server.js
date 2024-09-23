@@ -44,9 +44,9 @@ app.use(bodyParser.json());
 app.options('*', cors(corsOptions)); // For preflight requests
 
 
-app.use("/backend/auth", authRoutes);
-app.use("/backend/users", userRoutes);
-app.use("/backend/notifications", notificationRoutes);
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/notifications", notificationRoutes);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

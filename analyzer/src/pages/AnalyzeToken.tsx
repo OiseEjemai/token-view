@@ -34,9 +34,10 @@ const AnalyzeToken = () => {
     } = useMutation({
         mutationFn: async (search) => {
             try {
-                const res = await fetch("/backend/users/save-searches", {
+                const res = await fetch("https://token-view.onrender.com/users/save-searches", {
                     method: "POST",
                     headers: {
+                        Accept: 'application/json',
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({ search }),
@@ -64,9 +65,10 @@ const AnalyzeToken = () => {
         setTokenInfo(null);
 
         try {
-            const response = await fetch(`/api/coins/${searchQuery.toLowerCase()}`, {
+            const response = await fetch(`https://api.coingecko.com/api/v3/coins/${searchQuery.toLowerCase()}`, {
                 method: "GET",
                 headers: {
+                    Accept: 'application/json',
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ search }),
@@ -82,7 +84,7 @@ const AnalyzeToken = () => {
         if (searchQuery.toLowerCase() === 'ton' || searchQuery.toLowerCase() === 'toncoin') {
             try {
                 // const fallbackResponse = await axios.get(`/api/coins/the-open-network`);
-                const fallbackResponse = await fetch(`/api/coins/the-open-network`, {
+                const fallbackResponse = await fetch(`https://api.coingecko.com/api/v3/coins/the-open-network`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

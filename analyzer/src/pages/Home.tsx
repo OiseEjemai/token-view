@@ -56,24 +56,16 @@ function Home() {
     useEffect(() => {
         const fetchCandlestickData = async () => {
             try {
-                const response = await fetch(`/api/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`, {
+                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`, {
                     method: "GET",
                     headers: {
+                        Accept: 'application/json',
                         "Content-Type": "application/json",
                         'x-cg-demo-api-key': 'CG-jrxuRfEAobyEpGDgbKk1uHi2'
                     },
-                    // body: JSON.stringify({  }),
                 });
-                // Fetch OHLC data for the past 30 days (example timeframe)
-                // const response = await fetch(
-                //     `/api/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`,
-                //     {
-                //         headers: { accept: 'application/json', 'x-cg-demo-api-key': 'CG-jrxuRfEAobyEpGDgbKk1uHi2' }
-                //     }
-                // );
                 const data = await response.json();
                 console.log(data)
-
 
                 // Format data to the required structure for the chart
                 const formattedData = data.map(([time, open, high, low, close]) => ({
@@ -129,9 +121,10 @@ function Home() {
         // Update chart with new data (for live updates)
         const updateChart = async () => {
             try {
-                const response = await fetch(`/api/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`, {
+                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${selectedToken}/ohlc?vs_currency=usd&days=365&precision=full`, {
                     method: "GET",
                     headers: {
+                        Accept: 'application/json',
                         "Content-Type": "application/json",
                         'Authorization': `Bearer CG-jrxuRfEAobyEpGDgbKk1uHi2`,
                     },

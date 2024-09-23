@@ -47,7 +47,7 @@ function Topbar() {
   const { mutate: logout } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch("/backend/auth/logout", {
+        const res = await fetch("https://token-view.onrender.com/auth/logout", {
           method: "POST",
         });
         const data = await res.json();
@@ -72,9 +72,10 @@ function Topbar() {
   const { mutateAsync: updateProfile, isPending: isUpdatingProfile } = useMutation({
     mutationFn: async (editFormData) => {
       try {
-        const res = await fetch(`/backend/users/update`, {
+        const res = await fetch(`https://token-view.onrender.com/users/update`, {
           method: "POST",
           headers: {
+            Accept: 'application/json',
             "Content-Type": "application/json",
           },
           body: JSON.stringify(editFormData),
