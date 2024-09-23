@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true })); // to parse form data(urlencode
 app.use(cookieParser());
 
 const corsOptions = {
-	origin: 'https://token-view-project.vercel.app/', //Frontend URI (http://localhost:5173)
+	origin: 'https://token-view-project.vercel.app', //Frontend URI (http://localhost:5173)
 	credentials: true, // Allow credentials (cookies)
 	optionsSuccessStatus: 200,
 };
