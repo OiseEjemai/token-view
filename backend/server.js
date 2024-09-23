@@ -38,21 +38,15 @@ const corsOptions = {
 };
 
 app.use(cors())
-const allowedOrigins = ['https://token-view-project.vercel.app']; // Add your frontend URL
-
-app.use(cors({
-	origin: function (origin, callback) {
-		if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-			callback(null, true);
-		} else {
-			callback(new Error('Not allowed by CORS'));
-		}
-	},
-	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true, // Allow cookies to be sent with requests
-})); 
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "https://token-view-project.vercel.app");
+	// res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+	next();
+});
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
