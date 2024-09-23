@@ -31,7 +31,7 @@ function Signin() {
 	} = useMutation({
 		mutationFn: async ({ username, password }) => {
 			try {
-				const res = await fetch("https://token-view.onrender.com/auth/login", {
+				const res = await fetch("https://token-view.onrender.com/login", {
 					method: "POST",
 					headers: {
 						Accept: 'application/json',
