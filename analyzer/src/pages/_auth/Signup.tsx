@@ -28,6 +28,7 @@ function Signup() {
 		mutationFn: async ({ name, username, email, password }) => {
 			try {
 				const res = await fetch("https://token-view.onrender.com/auth/signup", {
+					mode: 'no-cors',
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

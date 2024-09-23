@@ -32,6 +32,7 @@ function Signin() {
 		mutationFn: async ({ username, password }) => {
 			try {
 				const res = await fetch("https://token-view.onrender.com/auth/login", {
+					mode: 'no-cors',
 					method: "POST",
 					headers: {
 						Accept: 'application/json',
