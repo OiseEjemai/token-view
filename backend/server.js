@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true })); // to parse form data(urlencode
 app.use(cookieParser());
 const corsOptions = {
 	origin: 'https://token-view-project.vercel.app/', //Frontend URI (http://localhost:5173)
-	credentials: true, //Allow credentials (cookies)
+	credentials: true, // Allow credentials (cookies)
 	optionsSuccessStatus: 200,
 };
 
@@ -43,7 +43,7 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "https://token-view-project.vercel.app");
-	// res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 	next();
 });

@@ -78,7 +78,6 @@ function Topbar() {
             Accept: 'application/json',
             "Content-Type": "application/json",
           },
-          credentials: 'include', // Important to send cookies
           body: JSON.stringify(editFormData),
         });
         const data = await res.json();

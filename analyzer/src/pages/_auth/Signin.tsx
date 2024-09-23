@@ -37,7 +37,6 @@ function Signin() {
 						Accept: 'application/json',
 						"Content-Type": "application/json",
 					},
-					credentials: 'include', // Important to send cookies
 					body: JSON.stringify({ username, password }),
 				});
 
