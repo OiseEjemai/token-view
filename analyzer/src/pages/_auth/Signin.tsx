@@ -53,6 +53,7 @@ function Signin() {
 			// refetch the authUser
 			queryClient.invalidateQueries({ queryKey: ["authUser"] });
 			toast("Successfully Logged in!")
+			navigate('/')
 		},
 	});
 
