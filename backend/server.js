@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // Ensure cookies are parsed
 
 const corsOptions = {
-	origin: 'http://localhost:5173', //Frontend URI (http://localhost:5173)
+	origin: 'https://token-view-project.vercel.app', //Frontend URI (http://localhost:5173)
 	credentials: true, //Allow credentials (cookies)
 };
 
