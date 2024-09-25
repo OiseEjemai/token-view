@@ -28,38 +28,38 @@ const AnalyzeToken = () => {
 
     const queryClient = useQueryClient();
 
-    const {
-        mutate: searchMutation,
-        isPending,
-        isError,
-        error,
-    } = useMutation({
-        mutationFn: async (search) => {
-            try {
-                const res = await fetch("http://localhost:5500/users/save-searches", {
-                    method: "POST",
-                    headers: {
-                        Accept: 'application/json',
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ search }),
-                });
+    // const {
+    //     mutate: searchMutation,
+    //     isPending,
+    //     isError,
+    //     error,
+    // } = useMutation({
+    //     mutationFn: async (search) => {
+    //         try {
+    //             const res = await fetch("http://localhost:5500/users/save-searches", {
+    //                 method: "POST",
+    //                 headers: {
+    //                     Accept: 'application/json',
+    //                     "Content-Type": "application/json",
+    //                 },
+    //                 body: JSON.stringify({ search }),
+    //             });
 
-                const data = await res.json();
+    //             const data = await res.json();
 
-                if (!res.ok) {
-                    throw new Error(data.error || "Something went wrong");
-                }
-            } catch (error) {
-                throw new Error(error);
-            }
-        },
-        onSuccess: () => {
-            // refetch the authUser
-            queryClient.invalidateQueries({ queryKey: ["authUser"] });
-            // toast("Successfully Logged in!")
-        },
-    });
+    //             if (!res.ok) {
+    //                 throw new Error(data.error || "Something went wrong");
+    //             }
+    //         } catch (error) {
+    //             throw new Error(error);
+    //         }
+    //     },
+    //     onSuccess: () => {
+    //         // refetch the authUser
+    //         queryClient.invalidateQueries({ queryKey: ["authUser"] });
+    //         // toast("Successfully Logged in!")
+    //     },
+    // });
 
     const fetchTokenInfo = async (searchQuery) => {
         setLoading(true);
@@ -144,7 +144,7 @@ const AnalyzeToken = () => {
         if (user.user) {
             if (search) {
                 fetchTokenInfo(search);
-                searchMutation(search)
+                // searchMutation(search)
             }
         } else {
             toast("You must be signed in!");
