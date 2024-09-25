@@ -7,63 +7,63 @@ const MetaApi = require('metaapi.cloud-sdk').default;
 const Notification = require("../models/Notification.js")
 const User = require("../models/User.js")
 
-module.exports.getUserProfile = async (req, res) => {
-	const { username } = req.params;
+// module.exports.getUserProfile = async (req, res) => {
+// 	const { username } = req.params;
 
-	try {
-		const user = await User.findOne({ username }).select("-password");
-		if (!user) return res.status(404).json({ message: "User not found" });
+// 	try {
+// 		const user = await User.findOne({ username }).select("-password");
+// 		if (!user) return res.status(404).json({ message: "User not found" });
 
-		res.status(200).json(user);
-	} catch (error) {
-		console.log("Error in getUserProfile: ", error.message);
-		res.status(500).json({ error: error.message });
-	}
-};
+// 		res.status(200).json(user);
+// 	} catch (error) {
+// 		console.log("Error in getUserProfile: ", error.message);
+// 		res.status(500).json({ error: error.message });
+// 	}
+// };
 
 
-module.exports.updateUser = async (req, res) => {
-	const { name, email, username, currentPassword, newPassword } = req.body;
+// module.exports.updateUser = async (req, res) => {
+// 	const { name, email, username, currentPassword, newPassword } = req.body;
 
-	const userId = req.user._id;
+// 	const userId = req.user._id;
 
-	try {
-		let user = await User.findById(userId);
-		if (!user) return res.status(404).json({ message: "User not found" });
-		if (currentPassword && newPassword) {
-			const isMatch = await bcrypt.compare(currentPassword, user.password);
-			if (!isMatch) return res.status(400).json({ error: "Current password is incorrect" });
-			if (newPassword.length < 6) {
-				return res.status(400).json({ error: "Password must be at least 6 characters long" });
-			}
+// 	try {
+// 		let user = await User.findById(userId);
+// 		if (!user) return res.status(404).json({ message: "User not found" });
+// 		if (currentPassword && newPassword) {
+// 			const isMatch = await bcrypt.compare(currentPassword, user.password);
+// 			if (!isMatch) return res.status(400).json({ error: "Current password is incorrect" });
+// 			if (newPassword.length < 6) {
+// 				return res.status(400).json({ error: "Password must be at least 6 characters long" });
+// 			}
 
-			const salt = await bcrypt.genSalt(10);
-			user.password = await bcrypt.hash(newPassword, salt);
-		}
+// 			const salt = await bcrypt.genSalt(10);
+// 			user.password = await bcrypt.hash(newPassword, salt);
+// 		}
 
-		if ((!newPassword && currentPassword) || (!currentPassword && newPassword)) {
-			return res.status(400).json({ error: "Please provide both current password and new password" });
-		}
+// 		if ((!newPassword && currentPassword) || (!currentPassword && newPassword)) {
+// 			return res.status(400).json({ error: "Please provide both current password and new password" });
+// 		}
 
-		if (!newPassword && !currentPassword) {
-			return;
-		}
+// 		if (!newPassword && !currentPassword) {
+// 			return;
+// 		}
 
-		user.name = name || user.name;
-		user.email = email || user.email;
-		user.username = username || user.username;
+// 		user.name = name || user.name;
+// 		user.email = email || user.email;
+// 		user.username = username || user.username;
 
-		user = await user.save();
+// 		user = await user.save();
 
-		// password should be null in response
-		user.password = null;
+// 		// password should be null in response
+// 		user.password = null;
 
-		return res.status(200).json(user);
-	} catch (error) {
-		console.log("Error in updateUser: ", error.message);
-		res.status(500).json({ error: error.message });
-	}
-};
+// 		return res.status(200).json(user);
+// 	} catch (error) {
+// 		console.log("Error in updateUser: ", error.message);
+// 		res.status(500).json({ error: error.message });
+// 	}
+// };
 
 module.exports.saveSearches = async (req, res) => {
 	try {

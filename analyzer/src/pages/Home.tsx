@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import Topbar from '../components/shared/Topbar'
 import { createChart } from 'lightweight-charts';
+import { useUser, SignOutButton, SignedIn } from '@clerk/clerk-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { type ChartConfig } from "../components/ui/chart"
 import Footer from '../components/shared/Footer';
@@ -52,6 +53,8 @@ function Home() {
     const handleTokenChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedToken(event.target.value);
     };
+
+    const user = useUser()
 
     useEffect(() => {
         const fetchCandlestickData = async () => {
@@ -179,6 +182,7 @@ function Home() {
 
         return () => timers.forEach(clearTimeout);
     }, []);
+    console.log(user)
 
     return (
         <div className=''>
@@ -190,6 +194,10 @@ function Home() {
                 </div>
                 <Bitcoin className='w-32 mb-32 h-32 animate-moveUpAndDown order-1' />
                 <LucideHandCoins className='w-32 mb-32 h-32 animate-moveUpAndDown m-4 order-3' />
+                <SignedIn>
+                <SignOutButton></SignOutButton>
+                </SignedIn>
+
             </div>
             <div className='min-h-screen text-white'>
                 <h1 className='text-center text-2xl mb-4'>Services</h1>

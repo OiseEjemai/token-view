@@ -5,10 +5,15 @@ module.exports.generateTokenAndSetCookie = (userId, res) => {
 		expiresIn: "15d",
 	});
 
+
 	res.cookie("jwt", token, {
-		maxAge: 15 * 24 * 60 * 60 * 1000, // MS
-		httpOnly: true, // prevent XSS attacks cross-site scripting attacks
-		sameSite: 'lax', // Allow cookies to be sent in cross-origin requests
-		secure: true,
+		maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
+		httpOnly: true, // Prevent XSS
+		sameSite: "Lax", // Prevent CSRF attacks, adjust as needed
+		secure: process.env.NODE_ENV === 'production', // Set to true for production HTTPS
 	});
+	const headers = res.getHeaders();
+
+
+    console.log('Set-Cookie:', headers['set-cookie']); // This will log the Set-Cookie header
 };

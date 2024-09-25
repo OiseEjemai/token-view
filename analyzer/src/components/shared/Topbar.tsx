@@ -26,11 +26,13 @@ import {
   SheetTrigger,
 } from "../ui/sheet"
 import { toast } from "sonner"
+import { useUser, SignOutButton } from '@clerk/clerk-react'
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import Loader from './Loader'
 
 function Topbar() {
+  const user = useUser()
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -47,7 +49,7 @@ function Topbar() {
   const { mutate: logout } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await fetch("https://token-view.onrender.com/auth/logout", {
+        const res = await fetch("http://localhost:5500/auth/logout", {
           method: "POST",
         });
         const data = await res.json();
@@ -72,7 +74,7 @@ function Topbar() {
   const { mutateAsync: updateProfile, isPending: isUpdatingProfile } = useMutation({
     mutationFn: async (editFormData) => {
       try {
-        const res = await fetch(`https://token-view.onrender.com/users/update`, {
+        const res = await fetch(`http://localhost:5500/users/update`, {
           method: "POST",
           headers: {
             Accept: 'application/json',
@@ -146,32 +148,29 @@ function Topbar() {
             <div className="items-center gap-4">
               <a href="/" className='text-center'>Home</a>
             </div>
-            {authUser ?
+            {user.user ?
               <AlertDialog>
                 <AlertDialogTrigger className='text-center'>Profile</AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle className='text-center'>Profile</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Name: {authUser?.name}
+                      Name: {user?.user?.fullName}
                     </AlertDialogDescription>
                     <AlertDialogDescription>
-                      Username: {authUser?.username}
+                      Username: {user?.user?.username}
                     </AlertDialogDescription>
                     <AlertDialogDescription>
-                      Email: {authUser?.email}
-                    </AlertDialogDescription>
-                    <AlertDialogDescription>
-                      Total Searches: {authUser?.searched.length}
+                      Email: {user?.user?.primaryEmailAddress?.emailAddress}
                     </AlertDialogDescription>
                     <AlertDialogAction onClick={() => setIsEditModalOpen(true)}>
                       <p className='cursor-pointer'><Edit /></p>
                     </AlertDialogAction>
-                    <AlertDialogAction onClick={handleModal}>View Search history</AlertDialogAction>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Close</AlertDialogCancel>
-                    <AlertDialogAction className='bg-red-700' onClick={(e) => { e.preventDefault(); logout(); }}>Logout</AlertDialogAction>
+                    <SignOutButton></SignOutButton>
+                    {/* <AlertDialogAction className='bg-red-700' onClick={(e) => { e.preventDefault(); logout(); }}>Logout</AlertDialogAction> */}
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -202,32 +201,29 @@ function Topbar() {
         <a href="/trading" className='p-4'>Trading</a>
         <a href="/learn-and-earn" className='p-4'>Learn and earn</a>
         <a href="/premium" className='p-4'>Premium</a>
-        {authUser ?
+        {user.user ?
           <AlertDialog>
             <AlertDialogTrigger>Profile</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle className='text-center'>Profile</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Name: {authUser?.name}
+                  Name: {user?.user?.fullName}
                 </AlertDialogDescription>
                 <AlertDialogDescription>
-                  Username: {authUser?.username}
+                  Username: {user?.user?.username}
                 </AlertDialogDescription>
                 <AlertDialogDescription>
-                  Email: {authUser?.email}
-                </AlertDialogDescription>
-                <AlertDialogDescription>
-                  Total Searches: {authUser?.searched.length}
+                  Email: {user?.user?.primaryEmailAddress?.emailAddress}
                 </AlertDialogDescription>
                 <AlertDialogAction onClick={() => setIsEditModalOpen(true)}>
                   <p className='cursor-pointer'><Edit /></p>
                 </AlertDialogAction>
-                <AlertDialogAction onClick={handleModal}>View Search history</AlertDialogAction>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Close</AlertDialogCancel>
-                <AlertDialogAction className='bg-red-700' onClick={(e) => { e.preventDefault(); logout(); }}>Logout</AlertDialogAction>
+                {/* <AlertDialogAction className='bg-red-700' onClick={(e) => { e.preventDefault(); logout(); }}>Logout</AlertDialogAction> */}
+                <SignOutButton></SignOutButton>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -252,17 +248,6 @@ function Topbar() {
                     </svg>
                     <span className="sr-only">Close modal</span>
                   </button>
-                  <h1 className='text-black text-2xl font-mono'>Search History</h1>
-
-                  {authUser ?
-                    <div className='flex flex-col text-black'>
-                      <ul className='font-mono'>
-                        {authUser.searched.map((search) => (
-                          <li key={search} className='mt-4'>- {search}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    : ''}
                 </div>
               </div>
             </div>

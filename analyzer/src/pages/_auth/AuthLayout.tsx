@@ -8,7 +8,7 @@ export default function AuthLayout() {
     queryKey: ["authUser"],
     queryFn: async () => {
         try {
-            const res = await fetch("https://token-view.onrender.com/auth/me");
+            const res = await fetch("http://localhost:5500/auth/me");
             const data = await res.json();
             if (data.error) return null;
             if (!res.ok) {

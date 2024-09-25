@@ -2,7 +2,7 @@
 module.exports.connectDB = async () => {
     const mongoose = require('mongoose');
 
-    const dbUrl = process.env.MONGO_URI
+    const dbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/tokenview'
     try {
         await mongoose.connect(dbUrl, {})
             .then(() => console.log('MongoDB connected'))
