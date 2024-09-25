@@ -65,7 +65,7 @@ const AnalyzeToken = () => {
         setLoading(true);
         setError('');
         setTokenInfo(null);
-
+    
         try {
             const response = await fetch(`https://api.coingecko.com/api/v3/coins/${searchQuery.toLowerCase()}`, {
                 method: "GET",
@@ -73,35 +73,39 @@ const AnalyzeToken = () => {
                     Accept: 'application/json',
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ search }),
             });
-            // const response = await axios.get(`/api/coins/${searchQuery.toLowerCase()}`);
-            setTokenInfo(response.data);
-            analyzeToken(response.data); // Call the analysis function
-            console.log(response.data)
+    
+            const data = await response.json();  // Extract JSON data from the response
+            setTokenInfo(data);
+            analyzeToken(data); // Call the analysis function
             setLoading(false);
         } catch (error) {
-            console.log(error)
+            console.error(error);
+            setError('Token not found or server error');
+            setLoading(false);
         }
+    
         if (searchQuery.toLowerCase() === 'ton' || searchQuery.toLowerCase() === 'toncoin') {
             try {
-                // const fallbackResponse = await axios.get(`/api/coins/the-open-network`);
                 const fallbackResponse = await fetch(`https://api.coingecko.com/api/v3/coins/the-open-network`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ search }),
                 });
-                setTokenInfo(fallbackResponse.data);
-                analyzeToken(fallbackResponse.data); // Call the analysis function
+    
+                const fallbackData = await fallbackResponse.json();  // Extract JSON data from the fallback response
+                setTokenInfo(fallbackData);
+                analyzeToken(fallbackData); // Call the analysis function
                 setLoading(false);
             } catch (fallbackError) {
+                console.error(fallbackError);
                 setError('Token not found or server error');
                 setLoading(false);
             }
         }
     };
+    
 
     const analyzeToken = (data) => {
         const currentPrice = data.market_data.current_price.usd;
