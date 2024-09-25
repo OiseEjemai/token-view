@@ -7,6 +7,7 @@ import Loader from '../components/shared/Loader';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import SkeletonCard from '../components/shared/SkeletonCard';
 import { Button } from '../components/ui/button';
+import { useUser } from '@clerk/clerk-react';
 import { useQuery } from '@tanstack/react-query';
 import {
     Card,
@@ -23,6 +24,7 @@ const AnalyzeToken = () => {
     const [err, setError] = useState('');
     const [recommendation, setRecommendation] = useState('Hold');
     const [estimatedReturn, setEstimatedReturn] = useState({});
+    const user = useUser()
 
     const queryClient = useQueryClient();
 
@@ -139,7 +141,7 @@ const AnalyzeToken = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        if (authUser) {
+        if (user.user) {
             if (search) {
                 fetchTokenInfo(search);
                 searchMutation(search)
