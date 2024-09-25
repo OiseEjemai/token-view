@@ -194,9 +194,6 @@ function Home() {
                 </div>
                 <Bitcoin className='w-32 mb-32 h-32 animate-moveUpAndDown order-1' />
                 <LucideHandCoins className='w-32 mb-32 h-32 animate-moveUpAndDown m-4 order-3' />
-                <SignedIn>
-                <SignOutButton></SignOutButton>
-                </SignedIn>
 
             </div>
             <div className='min-h-screen text-white'>
