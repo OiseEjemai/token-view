@@ -26,7 +26,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet"
 import { toast } from "sonner"
-import { useUser, SignOutButton } from '@clerk/clerk-react'
+import { useUser, SignOutButton, UserProfile } from '@clerk/clerk-react'
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import Loader from './Loader'
@@ -37,97 +37,7 @@ function Topbar() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const navigate = useNavigate()
-  const [editFormData, setEditFormData] = useState({
-    name: "",
-    username: "",
-    email: "",
-    currentPassword: "",
-    newPassword: "",
-  });
   const queryClient = useQueryClient();
-
-  const { mutate: logout } = useMutation({
-    mutationFn: async () => {
-      try {
-        const res = await fetch("http://localhost:5500/auth/logout", {
-          method: "POST",
-        });
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.error || "Something went wrong");
-        }
-      } catch (error) {
-        throw new Error(error);
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["authUser"] });
-      toast("Successfully Logged out!");
-      navigate("/sign-in")
-    },
-    onError: () => {
-      toast("Logout failed. Please try again");
-    },
-  });
-
-  const { mutateAsync: updateProfile, isPending: isUpdatingProfile } = useMutation({
-    mutationFn: async (editFormData) => {
-      try {
-        const res = await fetch(`http://localhost:5500/users/update`, {
-          method: "POST",
-          headers: {
-            Accept: 'application/json',
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editFormData),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error || "Something went wrong");
-        }
-        return data;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    },
-    onSuccess: () => {
-      toast.success("Profile updated successfully");
-      Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["authUser"] }),
-        queryClient.invalidateQueries({ queryKey: ["userProfile"] }),
-      ]);
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
-
-  const handleModal = () => {
-    setIsModalOpen(true)
-    console.log(true)
-  }
-
-  useEffect(() => {
-    if (authUser) {
-      setEditFormData({
-        name: authUser.name,
-        username: authUser.username,
-        email: authUser.email,
-        newPassword: "",
-        currentPassword: "",
-      });
-    }
-  }, [authUser]);
-
-  const handleInputChange = (e) => {
-    setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmitForm = async (e) => {
-    e.preventDefault();
-    await updateProfile(editFormData);
-  };
 
   return (
     <nav className='flex flex-row items-center py-4 px-5 top-0 text-white bg-black flex-wrap justify-between'>
@@ -233,26 +143,6 @@ function Topbar() {
             <a href="/sign-in" className='p-4'>Sign In</a>
           </div>
         }
-        {isModalOpen && (
-          <div className="overflow-auto min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
-            <div className="absolute bg-black opacity-80 inset-0 z-0" onClick={() => setIsModalOpen(false)}></div>
-            <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
-              <div className="">
-                <div className="text-center p-5 flex-auto justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center">
-                    <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
         {isEditModalOpen && (
           <div className="overflow-auto min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
             <div className="absolute bg-black opacity-80 inset-0 z-0" onClick={() => setIsModalOpen(false)}></div>
@@ -269,28 +159,7 @@ function Topbar() {
                     <span className="sr-only">Close modal</span>
                   </button>
                   <h1 className='text-black text-2xl font-mono'>Edit Profile</h1>
-                  <div className='text-black'>
-                    <form onSubmit={handleSubmitForm}>
-                      <Label htmlFor='name'>Name</Label>
-                      <Input id='name' name='name' type='text' value={editFormData.name} onChange={handleInputChange} required />
-
-                      <Label htmlFor='username'>Username</Label>
-                      <Input id='username' name='username' type='text' value={editFormData.username} onChange={handleInputChange} required />
-
-                      <Label htmlFor='email'>Email</Label>
-                      <Input id='email' name='email' type='email' value={editFormData.email} onChange={handleInputChange} required />
-
-                      <Label htmlFor='currentPassword'>Current Password</Label>
-                      <Input id='currentPassword' name='currentPassword' type='password' value={editFormData.currentPassword} onChange={handleInputChange} required />
-
-                      <Label htmlFor='newPassword'>New Password</Label>
-                      <Input id='newPassword' name='newPassword' type='password' value={editFormData.newPassword} onChange={handleInputChange} required />
-
-                      <Button type='submit' className='mt-4 w-44'>
-                        {isUpdatingProfile ? <Loader /> : "Submit"}
-                      </Button>
-                    </form>
-                  </div>
+                  <UserProfile />
                 </div>
               </div>
             </div>
