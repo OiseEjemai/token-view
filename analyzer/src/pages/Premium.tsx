@@ -8,9 +8,12 @@ import {
     CardTitle,
 } from "../components/ui/card"
 import { Button } from '../components/ui/button'
+import Topbar from '../components/shared/Topbar'
 
 function Premium() {
     return (
+        <div>
+            <Topbar />
         <div className=' min-h-screen flex flex-row items-center justify-center'>
             <Card className='m-8 w-96 h-96 text-black items-center justify-center flex flex-col'>
                 <CardHeader>
@@ -34,6 +37,7 @@ function Premium() {
                     <Button className=' text-end'>Pay now</Button>
                 </CardFooter>
             </Card>
+        </div>
         </div>
     )
 }
