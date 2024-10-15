@@ -5,21 +5,9 @@ import { useUser, SignOutButton, SignedIn } from '@clerk/clerk-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { type ChartConfig } from "../components/ui/chart"
 import Footer from '../components/shared/Footer';
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "../components/ui/accordion"
-import { Bitcoin, LucideHandCoins } from 'lucide-react'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "../components/ui/card"
+import CardSection from '../components/shared/Card';
+import Hero from '../components/shared/Hero';
+import FaqSection from '../components/shared/FaqSection';
 
 const chartData = [
     { month: "January", sell: 186, buy: 80 },
@@ -187,102 +175,10 @@ function Home() {
     return (
         <div className=''>
             <Topbar />
-            <div className='flex flex-row items-center  min-h-[40rem] text-white justify-center'>
-                <div className='text-center order-2 mb-32'>
-                    <h1 className='text-3xl animate-fadeInRight'>What are you buying today?</h1>
-                    <p className='mt-3 animate-fadeInLeft'>Don't worry, we got you covered.</p>
-                </div>
-                <Bitcoin className='w-32 mb-32 h-32 animate-moveUpAndDown order-1' />
-                <LucideHandCoins className='w-32 mb-32 h-32 animate-moveUpAndDown m-4 order-3' />
-
-            </div>
+            <Hero />
             <div className='min-h-screen text-white'>
-                <h1 className='text-center text-2xl mb-4'>Services</h1>
-                <div className='grid grid-cols-3 justify-center items-center'>
-                    <Card className='m-4 bg-black text-white'>
-                        <CardHeader>
-                            <CardTitle className='text-center'>Get Information about your favorite token</CardTitle>
-                        </CardHeader>
-                        <CardContent className='text-center'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, odit?
-                        </CardContent>
-                    </Card>
-                    <Card className='m-4 bg-black text-white'>
-                        <CardHeader>
-                            <CardTitle className='text-center'>What tokens to invest in?</CardTitle>
-                        </CardHeader>
-                        <CardContent className='text-center'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, odit?
-                        </CardContent>
-                    </Card>
-                    <Card className='m-4 bg-black text-white'>
-                        <CardHeader>
-                            <CardTitle className='text-center'>Get Information about a particular cryptocurrency token</CardTitle>
-                        </CardHeader>
-                        <CardContent className='text-center'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, odit?
-                        </CardContent>
-                    </Card>
-                    <Card className='m-4 bg-black text-white'>
-                        <CardHeader>
-                            <CardTitle className='text-center'>Get Information about a particular cryptocurrency token</CardTitle>
-                        </CardHeader>
-                        <CardContent className='text-center'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, odit?
-                        </CardContent>
-                    </Card>
-                    <Card className='m-4 bg-black text-white'>
-                        <CardHeader>
-                            <CardTitle className='text-center'>Get Information about a particular cryptocurrency token</CardTitle>
-                        </CardHeader>
-                        <CardContent className='text-center'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, odit?
-                        </CardContent>
-                    </Card>
-                    <Card className='m-4 bg-black text-white'>
-                        <CardHeader>
-                            <CardTitle className='text-center'>Get Information about a particular cryptocurrency token</CardTitle>
-                        </CardHeader>
-                        <CardContent className='text-center'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, odit?
-                        </CardContent>
-                    </Card>
-                </div>
-                <div className='flex flex-col mt-40 ml-5 mr-5'>
-                    <h1 className='text-center text-2xl'>FAQ</h1>
-                    <Accordion type="single" className='' collapsible>
-                        <AccordionItem value="item-1">
-                            <AccordionTrigger>Is registration fee?</AccordionTrigger>
-                            <AccordionContent>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, at.
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-2">
-                            <AccordionTrigger>Do I need to connect my wallet</AccordionTrigger>
-                            <AccordionContent>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod sint numquam quidem minima! Voluptatem, cupiditate!
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-3">
-                            <AccordionTrigger>Do I need to complete my KYC</AccordionTrigger>
-                            <AccordionContent>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod sint numquam quidem minima! Voluptatem, cupiditate!
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-4">
-                            <AccordionTrigger>Lorem ipsum dolor sit amet.</AccordionTrigger>
-                            <AccordionContent>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod sint numquam quidem minima! Voluptatem, cupiditate!
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-5">
-                            <AccordionTrigger>Lorem ipsum dolor sit amet.</AccordionTrigger>
-                            <AccordionContent>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod sint numquam quidem minima! Voluptatem, cupiditate!
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </div>
+                <CardSection />
+                <FaqSection />
             </div>
             <div className='text-black mt-40 min-h-screen'>
                 <h1 className='text-center text-2xl mb-4'>Charts</h1>

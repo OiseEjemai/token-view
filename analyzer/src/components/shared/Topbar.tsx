@@ -11,10 +11,6 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog"
 import { Edit } from 'lucide-react'
-import { Input } from "../ui/input"
-import { Label } from "../ui/label"
-import { Button } from '../ui/button'
-import { Badge } from '../ui/badge'
 import {
   Sheet,
   SheetClose,
@@ -27,7 +23,7 @@ import {
 } from "../ui/sheet"
 import { toast } from "sonner"
 import { useUser, SignOutButton, UserProfile } from '@clerk/clerk-react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import Loader from './Loader'
 
@@ -37,7 +33,18 @@ function Topbar() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const navbarLinks = document.querySelectorAll('#nav_links')
+    navbarLinks.forEach(element => {
+      if(element.pathname === location.pathname) {
+        element.classList.add('text-blue-500')
+      }
+    });
+  }, [location])
+  
 
   return (
     <nav className='flex flex-row items-center py-4 px-5 top-0 text-white bg-black flex-wrap justify-between'>
@@ -106,17 +113,17 @@ function Topbar() {
         </SheetContent>
       </Sheet>
       <div className='flex gap-4 nav-links flex-row justify-center'>
-        <a href="/" className='p-4'>Home</a>
-        <a href="/analyze-token" className='p-4'>Analyze token</a>
-        <a href="/trading" className='p-4'>Trading</a>
-        <a href="/learn-and-earn" className='p-4'>Learn and earn</a>
-        <a href="/premium" className='p-4'>Premium</a>
+        <a href="/" className='p-4' id='nav_links'>Home</a>
+        <a href="/analyze-token" className='p-4' id='nav_links'>Analyze token</a>
+        <a href="/trading" className='p-4' id='nav_links'>Trading</a>
+        <a href="/learn-and-earn" className='p-4' id='nav_links'>Learn and earn</a>
+        <a href="/premium" className='p-4' id='nav_links'>Premium</a>
         {user.user ?
           <AlertDialog>
             <AlertDialogTrigger>Profile</AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle className='text-center'>Profile</AlertDialogTitle>
+                <AlertDialogTitle className='text-center' id='nav_links'>Profile</AlertDialogTitle>
                 <AlertDialogDescription>
                   Name: {user?.user?.fullName}
                 </AlertDialogDescription>
@@ -139,8 +146,8 @@ function Topbar() {
           </AlertDialog>
           :
           <div className='items-center justify-center mt-4'>
-            <a href="/sign-up" className='p-4'>Sign Up</a>
-            <a href="/sign-in" className='p-4'>Sign In</a>
+            <a href="/sign-up" className='p-4' id='nav_links'>Sign Up</a>
+            <a href="/sign-in" className='p-4' id='nav_links'>Sign In</a>
           </div>
         }
         {isEditModalOpen && (
