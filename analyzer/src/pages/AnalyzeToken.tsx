@@ -219,6 +219,7 @@ const AnalyzeToken = () => {
                                         <li>60 days: ${estimatedReturn['60-day']}</li>
                                         <li>200 days: ${estimatedReturn['200-day']}</li>
                                     </ul>
+                                    <p>Disclaimer: All data gotten here are derived from coingecko and we are by no way telling you to use this strategy but to give you an idea.</p>
                                 </div>
                             </ul>
                         )}
