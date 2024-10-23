@@ -15,6 +15,7 @@ import {
     CardHeader,
     CardTitle,
 } from "../components/ui/card";
+import Footer from '../components/shared/Footer';
 
 const AnalyzeToken = () => {
     const [search, setSearch] = useState('');
@@ -158,7 +159,7 @@ const AnalyzeToken = () => {
     return (
         <div>
             <Topbar />
-            <div className="app-container bg-black text-white min-h-screen flex flex-col items-start font-mono">
+            <div className="app-container bg-background text-dark-1 min-h-screen flex flex-col items-start font-mono">
                 <div className='flex flex-col md:flex-row w-full p-8'>
                     <div className='md:w-1/2 flex justify-center'>
                         <Card className='w-full max-w-md'>
@@ -169,7 +170,7 @@ const AnalyzeToken = () => {
                                 <form onSubmit={handleSearch} className="flex flex-col gap-6">
                                     <Input
                                         type="text"
-                                        className="h-12 bg-dark-4 border-none text-white focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
+                                        className="h-12 bg-light-1 border-none text-dark-1 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3"
                                         placeholder="Enter token ID (e.g., bitcoin)"
                                         onChange={(e) => setSearch(e.target.value)}
                                         value={search}
@@ -237,6 +238,7 @@ const AnalyzeToken = () => {
 
                 {!tokenInfo && !loading && err && <p className='ml-4'>No results found.</p>}
             </div>
+            <Footer />
         </div>
     );
 };

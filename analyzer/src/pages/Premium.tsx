@@ -9,35 +9,19 @@ import {
 } from "../components/ui/card"
 import { Button } from '../components/ui/button'
 import Topbar from '../components/shared/Topbar'
+import Footer from '../components/shared/Footer'
 
 function Premium() {
     return (
         <div>
             <Topbar />
-            <div className=' min-h-screen flex flex-row items-center justify-center'>
-                <Card className='m-8 w-96 h-96 text-black items-center justify-center flex flex-col'>
-                    <CardHeader>
-                        <CardTitle className='text-center'>Free</CardTitle>
-                    </CardHeader>
-                    <CardContent className='text-center'>
-                        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, enim?</h2>
-                    </CardContent>
-                    <CardFooter className='text-center'>
-                        <Button className='text-center'>Your Plan</Button>
-                    </CardFooter>
-                </Card>
-                <Card className='m-8 w-96 h-96 text-black items-center justify-center flex flex-col'>
-                    <CardHeader>
-                        <CardTitle className='text-center'>Premium</CardTitle>
-                    </CardHeader>
-                    <CardContent className='text-center'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, odit?
-                    </CardContent>
-                    <CardFooter>
-                        <Button className=' text-end'>Pay now</Button>
-                    </CardFooter>
-                </Card>
+            <div className="app-container  text-dark-1 min-h-screen flex flex-col items-center justify-center font-mono">
+                <div className=' flex-wrap'>
+                    <h1 className='text-7xl text-center'>Coming Soon!</h1>
+                    <h3 className='text-center mt-8 text-3xl'>Nothing to see here</h3>
+                </div>
             </div>
+            <Footer />
         </div>
     )
 }

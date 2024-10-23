@@ -45,6 +45,7 @@
 // src/components/Trade.js
 import React, { useState, useEffect } from 'react';
 import Topbar from '../components/shared/Topbar';
+import Footer from '../components/shared/Footer';
 
 const Trading = () => {
   const [orderResponse, setOrderResponse] = useState(null);
@@ -91,19 +92,20 @@ const Trading = () => {
   };
 
   return (
-    <div className='text-white'>
+    <div>
       {/* <div id="tradingview-chart"></div>;
       <h1>Place a Trade</h1>
       <button onClick={() => handleTrade('buy')}>Buy</button>
       <button onClick={() => handleTrade('sell')}>Sell</button>
       {orderResponse && <p>Order Response: {JSON.stringify(orderResponse)}</p>} */}
       <Topbar />
-      <div className="app-container  text-white min-h-screen flex flex-col items-center justify-center font-mono">
-                <div className=' flex-wrap'>
-                    <h1 className='text-7xl text-center'>Coming Soon!</h1>
-                    <h3 className='text-center mt-8 text-3xl'>Nothing to see here</h3>
-                </div>
-            </div>
+      <div className="app-container text-dark-1 min-h-screen flex flex-col items-center justify-center font-mono">
+        <div className=' flex-wrap'>
+          <h1 className='text-7xl text-center'>Coming Soon!</h1>
+          <h3 className='text-center mt-8 text-3xl'>Nothing to see here</h3>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };

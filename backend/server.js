@@ -1,8 +1,9 @@
+require('dotenv').config();
 const express = require("express");
+const nodemailer = require('nodemailer')
 const path = require("path");
 const crypto = require('crypto-js');
 const fetch = require('node-fetch')
-const dotenv = require("dotenv");
 const { protectRoute } = require("./middleware/protectRoute");
 const User = require('./models/User');
 const cookieParser = require("cookie-parser");
@@ -10,6 +11,7 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const MetaApi = require('metaapi.cloud-sdk').default;
 const cloudinary = require('cloudinary').v2;
+const Subscriber = require('./models/SubscriberSchema')
 
 const authRoutes = require("./routes/auth.route");
 const userRoutes = require("./routes/user.route");
@@ -17,7 +19,6 @@ const notificationRoutes = require("./routes/notification.route");
 
 const { connectDB } = require('./db/connectDB');
 const apiBase = 'https://api.bitfinex.com';
-dotenv.config()
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -39,6 +40,14 @@ const apiSecret = process.env.BFX_API_SECRET;
 
 console.log(apiKey)
 console.log(apiSecret)
+
+const transporter = nodemailer.createTransport({
+    service: "gmail", // or use another service
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
 
 const corsOptions = {
     // origin: 'https://token-view-project.vercel.app', //Frontend URI (http://localhost:5173)
@@ -102,44 +111,44 @@ app.post('/auth/signup', async (req, res) => {
 app.post('/api/trade', async (req, res) => {
     const endpoint = '/api/v2/auth/w/order/submit';
     const { symbol, amount, side } = req.body;
-  
+
     const nonce = (Date.now() * 1000).toString();
 
     console.log(nonce)
     const body = {
-      type: 'EXCHANGE MARKET',
-      symbol,
-      amount,
-      side
+        type: 'EXCHANGE MARKET',
+        symbol,
+        amount,
+        side
     };
-  
+
     const signaturePayload = endpoint + nonce + body;
     const hmac = crypto.createHmac('sha384', apiSecret);
     const signature = hmac.update(signaturePayload).digest('hex');
     // const signature = `/v2/auth/w/order/submit${nonce}${JSON.stringify(body)}`;
     // const sig = crypto.HmacSHA384(signature, apiSecret).toString();
     console.log(sig)
-  
+
     try {
-      const response = await fetch(`${apiBase}/${endpoint}`, {
-        method: 'POST',
-        headers: {
-          'bfx-apikey': apiSecret,
-          'bfx-signature': signature,
-          'bfx-nonce': nonce,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body),
-      });
-  
-      const data = await response.json();
-      console.log(data)
-      res.json(data);
+        const response = await fetch(`${apiBase}/${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'bfx-apikey': apiSecret,
+                'bfx-signature': signature,
+                'bfx-nonce': nonce,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body),
+        });
+
+        const data = await response.json();
+        console.log(data)
+        res.json(data);
     } catch (error) {
-      res.status(500).json({ error: 'Order failed', details: error });
+        res.status(500).json({ error: 'Order failed', details: error });
     }
-  });
-  
+});
+
 
 app.post('/auth/login', async (req, res) => {
     try {
@@ -160,7 +169,48 @@ app.post('/auth/login', async (req, res) => {
     }
 })
 
+app.post("/api/subscribe", async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ message: "Email is required" });
+    }
+
+    try {
+
+        const existingSubscriber = await Subscriber.findOne({ email });
+
+        if (existingSubscriber) {
+            return res.status(400).json({ message: 'You are already subscribed!' });
+        }
+        // Save email to the database
+        const newSubscriber = new Subscriber({ email });
+        await newSubscriber.save();
+
+        // Send confirmation email to the user
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: "Subscription Confirmation",
+            text: "Thank you for subscribing to our newsletter!",
+        });
+
+        // Notify admin about the new subscriber
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: "oise1541@gmail.com",
+            subject: "New Newsletter Subscription",
+            text: `A new user subscribed with the email: ${email}`,
+        });
+
+        res.status(200).json({ message: "Successfully subscribed!" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Failed to subscribe. Please try again later." });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    // connectDB();
+    connectDB();
 });

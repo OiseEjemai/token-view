@@ -13,6 +13,7 @@ import AuthLayout from './pages/_auth/AuthLayout'
 import Premium from './pages/Premium'
 import LearnAndEarn from './pages/LearnAndEarn'
 import axios from 'axios'
+import Canvas from './pages/Canvas';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route path='/trading' element={<Trading />} />
         <Route path='/learn-and-earn' element={<LearnAndEarn />} />
         <Route path='/premium' element={<Premium />} />
+        <Route path='/canvas' element={<Canvas />} />
       </Routes>
       <Toaster />
     </div>
