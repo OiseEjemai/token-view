@@ -254,7 +254,7 @@ function Hero() {
                     <div className="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[178px] rounded-s-lg"></div>
                     <div className="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
                     <div className="rounded-[2rem] flex overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800 items-center justify-center text-center">
-                        <img src="/public/TokenView.png" className="dark:hidden w-[272px]" alt="Light mode mockup" />
+                        <img src="https://i.imgur.com/i5iMHmz.png" className="dark:hidden w-[272px]" alt="Light mode mockup" />
                     </div>
                 </div>
             </div>
