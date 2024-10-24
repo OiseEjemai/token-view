@@ -48,7 +48,7 @@ function Topbar() {
 
 
   return (
-    <nav className='flex flex-row items-center pt-2 top-0 bg-white text-dark-1 flex-wrap justify-between'>
+    <nav className='flex flex-row items-center pt-2 top-0 Home_TopBar text-dark-1 flex-wrap justify-between'>
       <div className='justify-between py-4 px-5 gap-3'>
         <a href="/" className='p-5'>Token View</a>
         <a href="/" className='p-6 nav-links' id='nav_links'>Home</a>
@@ -60,9 +60,9 @@ function Topbar() {
       <Sheet>
         <SheetTrigger asChild>
           <div className='flex flex-col gap-1 cursor-pointer main-div-div justify-between'>
-            <div className='main-nav-div bg-dark-1'></div>
-            <div className='main-nav-div bg-dark-1'></div>
-            <div className='main-nav-div bg-dark-1'></div>
+            <div className='main-nav-div bg-white'></div>
+            <div className='main-nav-div bg-white'></div>
+            <div className='main-nav-div bg-white'></div>
           </div>
         </SheetTrigger>
         <SheetContent className='w-[20rem]'>
@@ -75,7 +75,7 @@ function Topbar() {
             </div>
             {user.user ?
               <AlertDialog>
-                <AlertDialogTrigger className='text-center mr-4'>Profile</AlertDialogTrigger>
+                <AlertDialogTrigger className='text-center'>Profile</AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
                     <AlertDialogTitle className='text-center'>Profile</AlertDialogTitle>
@@ -101,8 +101,8 @@ function Topbar() {
               </AlertDialog>
               :
               <div className='items-center justify-center mt-4'>
-                <a href="/sign-up" className='p-4'><Button className='bg-primary-500'>Sign Up</Button></a>
-                <a href="/sign-in" className='p-4'><Button className='bg-primary-500'>Sign In</Button></a>
+                <a href="/sign-up" className='p-4'>Sign Up</a>
+                <a href="/sign-in" className='p-4'>Sign In</a>
               </div>
             }
             <div className="items-center">
@@ -123,7 +123,7 @@ function Topbar() {
       <div className='flex gap-4 nav-links flex-row justify-center'>
         {user.user ?
           <AlertDialog>
-            <AlertDialogTrigger>Profile</AlertDialogTrigger>
+            <AlertDialogTrigger className='mr-4'><Button className='bg-primary-500'>Profile</Button></AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle className='text-center' id='nav_links'>Profile</AlertDialogTitle>
@@ -149,33 +149,12 @@ function Topbar() {
           </AlertDialog>
           :
           <div className='items-center justify-center'>
-            <a href="/sign-up" className='p-4' id='nav_links'>Sign Up</a>
-            <a href="/sign-in" className='p-4' id='nav_links'>Sign In</a>
+            <a href="/sign-up" className='p-4' id='nav_links'><Button className='bg-primary-500'>Sign Up</Button></a>
+            <a href="/sign-in" className='p-4' id='nav_links'><Button className='bg-primary-500'>Sign In</Button></a>
           </div>
         }
         {isEditModalOpen && (
-          <div className="overflow-auto min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover">
-            <div className="absolute bg-black opacity-80 inset-0 z-0" onClick={() => setIsModalOpen(false)}></div>
-            <div className="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
-              <div className="">
-                <div className="text-center p-5 flex-auto justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setIsEditModalOpen(false)}
-                    className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center">
-                    <svg className="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                  </button>
-                  <h1 className='text-black text-2xl font-mono'>Edit Profile</h1>
-                  <div>
-                    <UserProfile />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <UserProfile />
         )}
       </div>
     </nav>
