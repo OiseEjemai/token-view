@@ -15,12 +15,12 @@ function KeyFeatures() {
 
           <section className="section--one">
             <article>
-              <div className="title-wrap">
-                <h2>Comprehensive Token Search.</h2>
+              <div className="title-wrap font-semibold">
+                <h2 className='font-bold'>Comprehensive Token Search.</h2>
               </div>
               <hr />
-              <div className="content-wrap">
-                <p>
+              <div className="content-wrap font-semibold">
+                <p className='font-bold'>
                 Quickly and easily search for any cryptocurrency token using its name and access detailed information on market cap, price, volume, and more
                 </p>
               </div>
@@ -28,11 +28,11 @@ function KeyFeatures() {
 
             <article>
               <div className="title-wrap">
-                <h2>User-Friendly Interface</h2>
+                <h2 className='font-bold'>User-Friendly Interface</h2>
               </div>
               <hr />
               <div className="content-wrap">
-                <p>
+                <p className='font-bold'>
                 Intuitive navigation and clean layout for a seamless user experience. Responsive design optimized for both desktop and mobile devices.
                 </p>
               </div>
@@ -40,11 +40,11 @@ function KeyFeatures() {
 
             <article>
               <div className="title-wrap">
-                <h2>Trading Simulator</h2>
+                <h2 className='font-bold'>Trading Simulator</h2>
               </div>
               <hr />
               <div className="content-wrap">
-                <p>
+                <p className='font-bold'>
                 Test your trading strategies with a simulated trading environment. Learn how to trade without financial risk through virtual currency.
                 </p>
               </div>
@@ -52,11 +52,11 @@ function KeyFeatures() {
 
             <article>
               <div className="title-wrap">
-                <h2>Educational Resources</h2>
+                <h2 className='font-bold'>Educational Resources</h2>
               </div>
               <hr />
               <div className="content-wrap">
-                <p>
+                <p className='font-bold'>
                 Access guides and tutorials on cryptocurrency trading and investment.
                 </p>
               </div>

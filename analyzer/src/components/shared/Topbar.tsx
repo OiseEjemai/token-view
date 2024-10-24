@@ -26,6 +26,7 @@ import { useUser, SignOutButton, UserProfile } from '@clerk/clerk-react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import Loader from './Loader'
+import { Button } from '../ui/button'
 
 function Topbar() {
   const user = useUser()
@@ -100,8 +101,8 @@ function Topbar() {
               </AlertDialog>
               :
               <div className='items-center justify-center mt-4'>
-                <a href="/sign-up" className='p-4'>Sign Up</a>
-                <a href="/sign-in" className='p-4'>Sign In</a>
+                <a href="/sign-up" className='p-4'><Button className='bg-primary-500'>Sign Up</Button></a>
+                <a href="/sign-in" className='p-4'><Button className='bg-primary-500'>Sign In</Button></a>
               </div>
             }
             <div className="items-center">
@@ -168,7 +169,9 @@ function Topbar() {
                     <span className="sr-only">Close modal</span>
                   </button>
                   <h1 className='text-black text-2xl font-mono'>Edit Profile</h1>
-                  <UserProfile />
+                  <div>
+                    <UserProfile />
+                  </div>
                 </div>
               </div>
             </div>
