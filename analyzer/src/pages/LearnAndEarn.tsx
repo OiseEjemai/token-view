@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Topbar from '../components/shared/Topbar';
 import Footer from '../components/shared/Footer';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase'
 import { motion } from "framer-motion";
 import {
   AlertDialog,
@@ -203,7 +205,6 @@ const Navbar = () => {
     <nav className='flex flex-row items-center pt-2 top-0 Home_TopBar text-white bg-[#467ce8] flex-wrap justify-between'>
       <div className='justify-between py-4 px-5 gap-3'>
         <a href="/" className='p-5'>Token View</a>
-        <a href="/" className='p-6 nav-links' id='nav_links'>Home</a>
         <a href="/analyze-token" className='p-6 nav-links' id='nav_links'>Analyze token</a>
         <a href="/trading" className='p-6 nav-links' id='nav_links'>Trading</a>
         <a href="/learn-and-earn" className='p-6 nav-links' id='nav_links'>Learn and Earn</a>
@@ -222,9 +223,6 @@ const Navbar = () => {
             <SheetTitle>Token View</SheetTitle>
           </SheetHeader>
           <div className="flex flex-col justify-around gap-16 items-center py-4 mt-4">
-            <div className="items-center gap-4">
-              <a href="/" className='text-center'>Home</a>
-            </div>
             {user.user ?
               <AlertDialog>
                 <AlertDialogTrigger className='text-center'>Profile</AlertDialogTrigger>
@@ -314,27 +312,45 @@ const Navbar = () => {
 }
 
 const LearnAndEarn = () => {
+  const [courses, setCourses] = useState([]);
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const coursesCollection = collection(db, 'courses'); // Use your collection name here
+        const coursesSnapshot = await getDocs(coursesCollection);
+        const coursesList = coursesSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCourses(coursesList);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
   return (
     <div>
       <Navbar />
       <ShuffleHero />
       <div className="learn-earn-section ">
 
-        {/* <div className="course-list grid grid-cols-3 gap-8 mt-8">
+        <div className="course-list grid grid-cols-3 gap-8 mt-8">
           {courses.map(course => (
             <div key={course.id} className="course-card bg-white shadow-lg p-6 rounded-lg">
-              <h2 className="text-2xl font-semibold">{course.title}</h2>
-              <p className="mt-4 text-gray-700">{course.description}</p>
-              <p className="mt-6 font-bold">{course.reward}</p>
-              <button className="mt-6 bg-blue-500 text-white px-4 py-2 rounded">
-                Start Course
-              </button>
-            </div>
+            <h2 className="text-2xl font-semibold">{course.title}</h2>
+            <p className="mt-4 text-gray-700">{course.description}</p>
+            <p className="mt-6 font-bold">{course.reward}</p>
+            <button className="mt-6 bg-blue-500 text-white px-4 py-2 rounded">
+              Start Course
+            </button>
+          </div>
           ))}
-        </div> */}
-        <div className='flex flex-col justify-center items-center' id='learning-content'>
-          <p className='text-center text-gray-500 mt-32'>No courses available</p>
         </div>
+        {/* <div className='flex flex-col justify-center items-center' id='learning-content'>
+          <p className='text-center text-gray-500 mt-32'>No courses available</p>
+        </div> */}
       </div>
       <Footer />
     </div>

@@ -51,7 +51,6 @@ function Topbar() {
     <nav className='flex flex-row items-center pt-2 top-0 Home_TopBar text-dark-1 flex-wrap justify-between'>
       <div className='justify-between py-4 px-5 gap-3'>
         <a href="/" className='p-5'>Token View</a>
-        <a href="/" className='p-6 nav-links' id='nav_links'>Home</a>
         <a href="/analyze-token" className='p-6 nav-links' id='nav_links'>Analyze token</a>
         <a href="/trading" className='p-6 nav-links' id='nav_links'>Trading</a>
         <a href="/learn-and-earn" className='p-6 nav-links' id='nav_links'>Learn and Earn</a>
@@ -60,9 +59,9 @@ function Topbar() {
       <Sheet>
         <SheetTrigger asChild>
           <div className='flex flex-col gap-1 cursor-pointer main-div-div justify-between'>
-            <div className='main-nav-div bg-white'></div>
-            <div className='main-nav-div bg-white'></div>
-            <div className='main-nav-div bg-white'></div>
+            <div className='main-nav-div bg-dark-1'></div>
+            <div className='main-nav-div bg-dark-1'></div>
+            <div className='main-nav-div bg-dark-1'></div>
           </div>
         </SheetTrigger>
         <SheetContent className='w-[20rem]'>
@@ -70,9 +69,6 @@ function Topbar() {
             <SheetTitle>Token View</SheetTitle>
           </SheetHeader>
           <div className="flex flex-col justify-around gap-16 items-center py-4 mt-4">
-            <div className="items-center gap-4">
-              <a href="/" className='text-center'>Home</a>
-            </div>
             {user.user ?
               <AlertDialog>
                 <AlertDialogTrigger className='text-center'>Profile</AlertDialogTrigger>
@@ -111,9 +107,9 @@ function Topbar() {
             <div className="items-center gap-4">
               <a href="/trading" className=''>Trading</a>
             </div>
-            {/* <div className="items-center gap-4">
-              <a href="/learn-and-earn" className=''>Learn and earn <Badge variant="outline">coming soon</Badge></a>
-            </div> */}
+            <div className="items-center gap-4">
+              <a href="/learn-and-earn" className=''>Learn and earn</a>
+            </div>
             <div className="items-center gap-4">
               <a href="/premium" className=''>Premium</a>
             </div>
