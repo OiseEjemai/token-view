@@ -45,12 +45,13 @@ const Card = ({ card }) => {
       <div
         style={{
           backgroundImage: `url(${card.url})`,
-          backgroundSize: "cover",
+          backgroundSize: "contain",
           backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
         className="absolute inset-0 z-0 transition-transform  duration-300 group-hover:scale-110"
       ></div>
-      <div className="absolute inset-0 z-10 grid place-content-center">
+      <div className="absolute inset-0 z-10 grid">
         <p className="p-8 text-sm font-[500] uppercase text-black">
           {card.title}
         </p>
