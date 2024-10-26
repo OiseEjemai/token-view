@@ -161,8 +161,8 @@ const AnalyzeToken = () => {
             <Topbar />
             <div className="app-container bg-background text-dark-1 min-h-screen flex flex-col items-start font-mono">
                 <div className='flex flex-col md:flex-row w-full p-8'>
-                    <div className='md:w-1/2 flex justify-center'>
-                        <Card className='w-full max-w-md'>
+                    <div className={`flex ${tokenInfo ? 'justify-start items-start ml-8 mt-8' : 'justify-center items-center h-screen'}`}>
+                        <Card className='w-full max-w-md card'>
                             <CardHeader>
                                 <CardTitle>Get Information about a particular cryptocurrency token</CardTitle>
                             </CardHeader>
@@ -184,7 +184,7 @@ const AnalyzeToken = () => {
                     </div>
                     <div className='md:w-1/2 ml-8'>
                         {tokenInfo && (
-                            <ul className='list-disc list-inside m-8 flex-col'>
+                            <ul className='list-disc list-inside m-8 flex-col token-info'>
                                 <li className='mb-3'> {tokenInfo.name} was created in: {tokenInfo.genesis_date}</li>
                                 <li className='mb-3'>{tokenInfo.name} has a current price of: ${tokenInfo.market_data.current_price.usd.toLocaleString()}</li>
                                 <li className='mb-3'>It has a market Cap of: ${tokenInfo.market_data.market_cap.usd.toLocaleString()}</li>

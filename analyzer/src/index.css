@@ -107,6 +107,19 @@ html {
 	display: none;
 }
 
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.app-container {
+    background: linear-gradient(135deg, #f3ec78, #af4261);
+    min-height: 100vh;
+    color: #333;
+}
+
 @media (max-width: 980px) {
 	.main-div-div {
 		display: flex;
@@ -115,6 +128,15 @@ html {
 	.nav-links {
 		display: none;
 	}
+}
+
+.token-info {
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .footer_links:hover {

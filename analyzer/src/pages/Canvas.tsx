@@ -91,7 +91,7 @@ const cards = [
   {
     url: "/assets/images/Discord.webp",
     title: "6. Engage with our discord community",
-    id: 6,
+  id: 6 
   },
   {
     url: "/imgs/abstract/5.jpg",

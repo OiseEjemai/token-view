@@ -14,6 +14,7 @@ import Premium from './pages/Premium'
 import LearnAndEarn from './pages/LearnAndEarn'
 import axios from 'axios'
 import Canvas from './pages/Canvas';
+import ParticleRing from './pages/ParticleRing';
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         <Route path='/learn-and-earn' element={<LearnAndEarn />} />
         <Route path='/premium' element={<Premium />} />
         <Route path='/canvas' element={<Canvas />} />
+        <Route path='/particle' element={<ParticleRing />} />
       </Routes>
       <Toaster />
     </div>
