@@ -102,6 +102,9 @@ function Topbar() {
               </div>
             }
             <div className="items-center">
+              <a href="/" className=''>Home</a>
+            </div>
+            <div className="items-center">
               <a href="/analyze-token" className=''>Analyze token</a>
             </div>
             <div className="items-center gap-4">
