@@ -224,31 +224,9 @@ const Navbar = () => {
           </SheetHeader>
           <div className="flex flex-col justify-around gap-16 items-center py-4 mt-4">
             {user.user ?
-              <AlertDialog>
-                <AlertDialogTrigger className='text-center'>Profile</AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle className='text-center'>Profile</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Name: {user?.user?.fullName}
-                    </AlertDialogDescription>
-                    <AlertDialogDescription>
-                      Username: {user?.user?.username}
-                    </AlertDialogDescription>
-                    <AlertDialogDescription>
-                      Email: {user?.user?.primaryEmailAddress?.emailAddress}
-                    </AlertDialogDescription>
-                    <AlertDialogAction onClick={() => setIsEditModalOpen(true)}>
-                      <p className='cursor-pointer'><Edit /></p>
-                    </AlertDialogAction>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Close</AlertDialogCancel>
-                    <SignOutButton></SignOutButton>
-                    {/* <AlertDialogAction className='bg-red-700' onClick={(e) => { e.preventDefault(); logout(); }}>Logout</AlertDialogAction> */}
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+              <div className='items-center justify-center mt-4'>
+                <a href="/user-dashboard" className='p-4'>Profile</a>
+              </div>
               :
               <div className='items-center justify-center mt-4'>
                 <a href="/sign-up" className='p-4'>Sign Up</a>
@@ -272,40 +250,13 @@ const Navbar = () => {
       </Sheet>
       <div className='flex gap-4 nav-links flex-row justify-center'>
         {user.user ?
-          <AlertDialog>
-            <AlertDialogTrigger className='mr-4'><Button className='bg-primary-500'>Profile</Button></AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle className='text-center' id='nav_links'>Profile</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Name: {user?.user?.fullName}
-                </AlertDialogDescription>
-                <AlertDialogDescription>
-                  Username: {user?.user?.username}
-                </AlertDialogDescription>
-                <AlertDialogDescription>
-                  Email: {user?.user?.primaryEmailAddress?.emailAddress}
-                </AlertDialogDescription>
-                <AlertDialogAction onClick={() => setIsEditModalOpen(true)}>
-                  <p className='cursor-pointer'><Edit /></p>
-                </AlertDialogAction>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Close</AlertDialogCancel>
-                {/* <AlertDialogAction className='bg-red-700' onClick={(e) => { e.preventDefault(); logout(); }}>Logout</AlertDialogAction> */}
-                <SignOutButton></SignOutButton>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <a href="/user-dashboard" className='p-4 mr-4' id='nav_links'><Button className='bg-primary-500 mr-4'>Profile</Button></a>
           :
           <div className='items-center justify-center'>
-            <a href="/sign-up" className='p-4' id='nav_links'><Button className='bg-primary-500'>Sign Up</Button></a>
-            <a href="/sign-in" className='p-4' id='nav_links'><Button className='bg-primary-500'>Sign In</Button></a>
+            <a href="/sign-up" className='p-4 mr-4' id='nav_links'><Button className='bg-primary-500'>Sign Up</Button></a>
+            <a href="/sign-in" className='p-4 mr-4' id='nav_links'><Button className='bg-primary-500'>Sign In</Button></a>
           </div>
         }
-        {isEditModalOpen && (
-          <UserProfile />
-        )}
       </div>
     </nav>
   )
@@ -339,13 +290,13 @@ const LearnAndEarn = () => {
         <div className="course-list grid grid-cols-3 gap-8 mt-8">
           {courses.map(course => (
             <div key={course.id} className="course-card bg-white shadow-lg p-6 rounded-lg">
-            <h2 className="text-2xl font-semibold">{course.title}</h2>
-            <p className="mt-4 text-gray-700">{course.description}</p>
-            <p className="mt-6 font-bold">{course.reward}</p>
-            <button className="mt-6 bg-blue-500 text-white px-4 py-2 rounded">
-              Start Course
-            </button>
-          </div>
+              <h2 className="text-2xl font-semibold">{course.title}</h2>
+              <p className="mt-4 text-gray-700">{course.description}</p>
+              <p className="mt-6 font-bold">{course.reward}</p>
+              <button className="mt-6 bg-blue-500 text-white px-4 py-2 rounded">
+                Start Course
+              </button>
+            </div>
           ))}
         </div>
         {/* <div className='flex flex-col justify-center items-center' id='learning-content'>

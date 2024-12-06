@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Edit, Ghost } from 'lucide-react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {Button} from '../ui/button'
+import { Button } from '../ui/button'
 gsap.registerPlugin(ScrollTrigger);
 import {
     AlertDialog,
@@ -52,11 +52,11 @@ function Hero() {
     useEffect(() => {
         const navbarLinks = document.querySelectorAll('#nav_links')
         navbarLinks.forEach(element => {
-          if (element.pathname === location.pathname) {
-            element.classList.add('active_nav_link')
-          }
+            if (element.pathname === location.pathname) {
+                element.classList.add('active_nav_link')
+            }
         });
-      }, [location])
+    }, [location])
 
     useEffect(() => {
         gsap.fromTo(
@@ -147,31 +147,9 @@ function Hero() {
                         </SheetHeader>
                         <div className="flex flex-col justify-around gap-16 items-center py-4 mt-4">
                             {user.user ?
-                                <AlertDialog>
-                                    <AlertDialogTrigger className='text-center'>Profile</AlertDialogTrigger>
-                                    <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                            <AlertDialogTitle className='text-center'>Profile</AlertDialogTitle>
-                                            <AlertDialogDescription>
-                                                Name: {user?.user?.fullName}
-                                            </AlertDialogDescription>
-                                            <AlertDialogDescription>
-                                                Username: {user?.user?.username}
-                                            </AlertDialogDescription>
-                                            <AlertDialogDescription>
-                                                Email: {user?.user?.primaryEmailAddress?.emailAddress}
-                                            </AlertDialogDescription>
-                                            <AlertDialogAction onClick={() => setIsEditModalOpen(true)}>
-                                                <p className='cursor-pointer'><Edit /></p>
-                                            </AlertDialogAction>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter>
-                                            <AlertDialogCancel>Close</AlertDialogCancel>
-                                            <SignOutButton></SignOutButton>
-                                            {/* <AlertDialogAction className='bg-red-700' onClick={(e) => { e.preventDefault(); logout(); }}>Logout</AlertDialogAction> */}
-                                        </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                </AlertDialog>
+                                <div className='items-center justify-center mt-4'>
+                                    <a href="/user-dashboard" className='p-4'>Profile</a>
+                                </div>
                                 :
                                 <div className='items-center justify-center mt-4'>
                                     <a href="/sign-up" className='p-4'>Sign Up</a>
@@ -198,40 +176,15 @@ function Hero() {
                 </Sheet>
                 <div className='flex gap-4 nav-links flex-row justify-center'>
                     {user.user ?
-                        <AlertDialog>
-                            <AlertDialogTrigger className='mr-4'><Button className='bg-primary-500'>Profile</Button></AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle className='text-center' id='nav_links'>Profile</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                        Name: {user?.user?.fullName}
-                                    </AlertDialogDescription>
-                                    <AlertDialogDescription>
-                                        Username: {user?.user?.username}
-                                    </AlertDialogDescription>
-                                    <AlertDialogDescription>
-                                        Email: {user?.user?.primaryEmailAddress?.emailAddress}
-                                    </AlertDialogDescription>
-                                    <AlertDialogAction onClick={() => setIsEditModalOpen(true)}>
-                                        <p className='cursor-pointer'><Edit /></p>
-                                    </AlertDialogAction>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Close</AlertDialogCancel>
-                                    {/* <AlertDialogAction className='bg-red-700' onClick={(e) => { e.preventDefault(); logout(); }}>Logout</AlertDialogAction> */}
-                                    <SignOutButton></SignOutButton>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
+                        <div>
+                            <a href="/user-dashboard" className='p-4 mr-4' id='nav_links'><Button className='bg-primary-500 mr-4'>Profile</Button></a>
+                        </div>
                         :
                         <div className='items-center justify-center'>
                             <a href="/sign-up" className='p-4' id='nav_links'><Button className='bg-primary-500'>Sign Up</Button></a>
                             <a href="/sign-in" className='p-4' id='nav_links'><Button className='bg-primary-500'>Sign In</Button></a>
                         </div>
                     }
-                    {isEditModalOpen && (
-                        <UserProfile />
-                    )}
                 </div>
             </nav>
             <div className='flex flex-col md:flex-row items-center justify-center min-h-[40rem] text-black gap-8 md:gap-16 relative overflow-hidden'>
@@ -243,8 +196,16 @@ function Hero() {
                         Don't worry, we've got you covered.
                     </p>
                     <div className="cta_btns flex flex-row mt-4 flex-wrap justify-center items-center">
-                    <Button size="lg" className='cta_btn bg-primary-500 m-4 w-52 animate-fadeInRight' onClick={buttonNavigateToSignUp}>Sign up</Button>
-                    <Button size="lg" className='cta_btn bg-primary-500 m-4 w-52 animate-fadeInRight' onClick={buttonNavigateToSignIn}>Sign In</Button>
+                        {user.user ?
+                            <div>
+                                <p className='text-white'>Welcome back, {user.user.username}! </p>
+                            </div>
+                            :
+                            <div>
+                                <Button size="lg" className='cta_btn bg-primary-500 m-4 w-52 animate-fadeInRight' onClick={buttonNavigateToSignUp}>Sign up</Button>
+                                <Button size="lg" className='cta_btn bg-primary-500 m-4 w-52 animate-fadeInRight' onClick={buttonNavigateToSignIn}>Sign In</Button>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div ref={mockupRef} className="relative border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl md:order-2 justify-end mb-8 md:mb-0 sm:mr-4">
